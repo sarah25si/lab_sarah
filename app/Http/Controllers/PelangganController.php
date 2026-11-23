@@ -3,23 +3,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Pelanggan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PelangganController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request){
-    $filterableColumns = ['gender'];
+    public function index(Request $request)
+    {
 
-    $searchableColumns = ['first_name']; //Tambahkan ini
+        if (! Auth::check()) {
+            return redirect()
+                ->route('auth.login')
+                ->withErrors('Silahkan Login Terlebih Dahulu');
+        }
 
-    $data['dataPelanggan'] = Pelanggan::filter($request, $filterableColumns)
-                            ->search($request, $searchableColumns) // dan ini
-                            ->paginate(10)->withQueryString();
 
-    return view('admin.pelanggan.index', $data);
-}
+
+        $filterableColumns = ['gender'];
+
+        $searchableColumns = ['first_name']; //Tambahkan ini
+
+        $data['dataPelanggan'] = Pelanggan::filter($request, $filterableColumns)
+            ->search($request, $searchableColumns) // dan ini
+            ->paginate(10)->withQueryString();
+
+        return view('admin.pelanggan.index', $data);
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -118,6 +118,7 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown ms-lg-3">
+                    @if(Auth::check())
                     <a class="nav-link dropdown-toggle pt-1 px-0" href="#" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="media d-flex align-items-center">
@@ -129,6 +130,7 @@
                         </div>
                     </a>
                     <div class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-2 py-1">
+
                         <a class="dropdown-item d-flex align-items-center" href="#">
                             <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -175,6 +177,9 @@
                         </a>
 
                     </div>
+                    @else
+                        <a class="btn btn-primary" href="{{ route('auth.login')}}">Login</a>
+                    @endif
                 </li>
             </ul>
         </div>

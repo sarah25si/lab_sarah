@@ -35,8 +35,7 @@
         <div class="col-12 mb-4">
             <div class="card border-0 shadow components-section">
                 <div class="card-body">
-                    <form action="{{ route('users.update', $dataUser->id) }}"
-                          method="POST">
+                    <form action="{{ route('users.update', $dataUser->id) }}" method="POST">
                         @csrf
                         @method('PUT')
 
@@ -48,14 +47,8 @@
                                     <label for="name" class="form-label">
                                         Nama Lengkap
                                     </label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        class="form-control"
-                                        name="name"
-                                        value="{{ old('name', $dataUser->name) }}"
-                                        required
-                                    >
+                                    <input type="text" id="name" class="form-control" name="name"
+                                        value="{{ old('name', $dataUser->name) }}" required>
                                     @error('name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -66,19 +59,36 @@
                                     <label for="email" class="form-label">
                                         Email
                                     </label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        class="form-control"
-                                        name="email"
-                                        value="{{ old('email', $dataUser->email) }}"
-                                        required
-                                    >
+                                    <input type="email" id="email" class="form-control" name="email"
+                                        value="{{ old('email', $dataUser->email) }}" required>
                                     @error('email')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                {{-- Role --}}
+                                <div class="mb-3">
+                                    <label for="role" class="form-label">Role</label>
+                                    <select name="role" id="role"
+                                        class="form-select @error('role') is-invalid @enderror" required>
+                                        <option value="">Pilih Role</option>
+                                        <option value="Super Admin"
+                                            {{ old('role', $dataUser->role) == 'Super Admin' ? 'selected' : '' }}>
+                                            Super Admin
+                                        </option>
+                                        <option value="Pelanggan"
+                                            {{ old('role', $dataUser->role) == 'Pelanggan' ? 'selected' : '' }}>
+                                            Pelanggan
+                                        </option>
+                                        <option value="Mitra"
+                                            {{ old('role', $dataUser->role) == 'Mitra' ? 'selected' : '' }}>
+                                            Mitra
+                                        </option>
+                                    </select>
 
+                                    @error('role')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
                             <div class="col-lg-6 col-sm-12">
@@ -88,12 +98,7 @@
                                     <label for="password" class="form-label">
                                         Password Baru
                                     </label>
-                                    <input
-                                        type="password"
-                                        id="password"
-                                        class="form-control"
-                                        name="password"
-                                    >
+                                    <input type="password" id="password" class="form-control" name="password">
                                     <small class="text-muted">
                                         Kosongkan jika tidak ingin mengubah password.
                                     </small>
@@ -107,12 +112,8 @@
                                     <label for="password_confirmation" class="form-label">
                                         Konfirmasi Password Baru
                                     </label>
-                                    <input
-                                        type="password"
-                                        id="password_confirmation"
-                                        class="form-control"
-                                        name="password_confirmation"
-                                    >
+                                    <input type="password" id="password_confirmation" class="form-control"
+                                        name="password_confirmation">
                                 </div>
 
                             </div>
@@ -123,8 +124,7 @@
                             Simpan Perubahan
                         </button>
 
-                        <a href="{{ route('users.index') }}"
-                           class="btn btn-outline-secondary ms-2">
+                        <a href="{{ route('users.index') }}" class="btn btn-outline-secondary ms-2">
                             Batal
                         </a>
                     </form>
